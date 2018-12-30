@@ -10,6 +10,7 @@ function love.load()
   
   player = {} 
   player.x = 0
+  player.y = 520
   player.bullet = {}
   player.cooldown = 10
   player.fire = function()
@@ -63,30 +64,33 @@ function love.update(dt)
   if love.keyboard.isDown("space") then -- Fire bullet
     player.fire()
   end
-  for i,v in ipairs(player.bullet) do --Remove bullet after going offscreen
+  
+  for i,v in ipairs(player.bullet) do --Move bulelt and remove bullet after going offscreen
     if v.y < -10 then 
       table.remove(player.bullet, i)
     end
-    v.y = v.y - 10
-  end
-  for i,e in pairs(e_controller.AllEnnemies) do  --Make ennemies go downwards
-    e.y = e.y + 1
-  end
-  for i,e in pairs(e_controller.AllEnnemies) do -- Contact with alien
-    for j,v in ipairs(player.bullet) do 
-      if player.bullet.x == e.y then
-        table.remove(player.bullet, j)
-        table.remove(e_controller.AllEnnemies, i)
+    for j,e in ipairs(e_controller.AllEnnemies) do
+      if ((v.x < e.x) and (v.x > e.x - 50) and (v.y > e.y - 50) and (v.y < e.y + 50)) then
+        table.remove(player.bullet, i)
+        table.remove(e_controller.AllEnnemies, j)
       end
     end
+    v.y = v.y - 10
+  end
+  
+  for _,e in pairs(e_controller.AllEnnemies) do  --Make ennemies go downwards and remove once on player level
+    if ennemie.y > 450 then
+      table.remove(e_controller.AllEnnemies)
+    end
+    --e.y = e.y + 1
   end
 end
 
 function love.draw()
   --player
     love.graphics.setColor(255, 0, 0)
-    love.graphics.rectangle("fill", player.x , 520, 130, 40)
-    love.graphics.rectangle("fill", player.x + 55 , 500, 20, 40)
+    love.graphics.rectangle("fill", player.x , player.y, 130, 40)
+    love.graphics.rectangle("fill", player.x + 55 , player.y - 20, 20, 40)
     love.graphics.setColor(255, 255, 255)
     
   --ennemies
@@ -95,10 +99,7 @@ function love.draw()
     end
     
     --bullets
-     love.graphics.setColor(1, 0.10, 0.45)
     for _,v in pairs(player.bullet) do
       love.graphics.rectangle("fill", v.x, v.y, 10, 10)
     end
-    
-    
 end
