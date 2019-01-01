@@ -22,3 +22,7 @@ PLAYER: "This is it, I suppose..."
 
 Player: "It's {location name}..."
 
+[Player looks down for a second, before looking back up towards the manor]
+
+Player: "Time to show them what I can do!"
+
