@@ -1,0 +1,24 @@
+[Black screen]
+--On a certain day at a certain time, a young reporter is off to make her career...--
+
+[Taxi driving through the woods at night. It's raining]
+
+[Black Screen]
+--What does she hope to find?--
+
+[Taxi stops near the edge of the woods]
+
+TAXI DRIVER: "This is about as far as I can take you..."
+
+[Black Screen]
+--Why don't YOU figure it out?--
+
+[Taxi does a U-turn, revealing our protaginist. The player is given control.]
+
+PLAYER: "This is it, I suppose..."
+
+[If heads back to woods, model cluthches fists, looks down, and turns back around]
+[A Mansion/Inn/Large building lies ahead if the player keeps walking]
+
+Player: "It's {location name}..."
+
