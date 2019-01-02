@@ -1,1 +1,3 @@
-//This is a main wow
+--  Authors: William Xie, Jaafar Kaoussarani  --
+--  File: main.lua                            --
+--  Description: Executes the program         --
