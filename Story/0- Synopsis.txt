@@ -1,3 +1,5 @@
+[Team name and other info]
+
 (Each of these lines will be associated to an image)
 
 -- One often forgets just how connected all of us are. --
@@ -24,4 +26,4 @@
 
 -- {player name} ? --
 
-[Title screen]
+[Main Menu]
