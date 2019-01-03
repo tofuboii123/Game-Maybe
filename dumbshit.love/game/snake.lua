@@ -1,7 +1,7 @@
 Object = require "classic"
+--
+require "conf"
 Snake = Object:extend()
-WINDOW_WIDTH = 1280
-WINDOW_HEIGHT = 720
 
 function Snake:new()
   self.x = WINDOW_WIDTH/2  - 20/2
