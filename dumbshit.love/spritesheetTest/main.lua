@@ -22,11 +22,8 @@ function love.draw()
 ]]--
     -- draw image 4x size centered
     love.graphics.draw(imageFile,activeFrame,
-        love.graphics.getWidth()/2 - ({activeFrame:getViewport()})[3]/2 * 4,
-        love.graphics.getHeight()/2 - ({activeFrame:getViewport()})[4]/2 * 4,
-        0,
-        4,
-        4)
+        love.graphics.getWidth()/2 - ({activeFrame:getViewport()})[3]/2 ,
+        love.graphics.getHeight()/2 - ({activeFrame:getViewport()})[4]/2)
 end
 
 local elapsedTime = 0
