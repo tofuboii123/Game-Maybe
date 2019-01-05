@@ -48,7 +48,6 @@ function love.update(dt)
         elapsedTime = 0
       end
     end
-    
     if love.keyboard.isDown("left") then
     elapsedTime = elapsedTime + dt
 
