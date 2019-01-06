@@ -45,7 +45,6 @@ function love.update(dt)
 	if player.y_velocity ~= 0 then
     if not love.keyboard.isDown('space') and not player.falling then
       player.falling = true
-      player.y_velocity = 0
     end
 		player.y = player.y + player.y_velocity * dt
 		player.y_velocity = player.y_velocity - player.gravity * dt
