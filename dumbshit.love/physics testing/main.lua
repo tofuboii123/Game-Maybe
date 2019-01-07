@@ -1,3 +1,4 @@
+require "camera"
 function love.load()
   love.physics.setMeter(90) --the height of a meter our worlds will be 64px
   world = love.physics.newWorld(0, 10*90, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 10 (instead of 9.81 just for gaminess sake)
@@ -36,7 +37,7 @@ end
  
 function love.update(dt)
   world:update(dt) --this puts the world into motion
- 
+  camera:setPosition(objects.ball.body:getX() - 650/2, objects.ball.body:getY() - 650/2)
   --here we are going to create some keyboard events
   if love.keyboard.isDown("right") then --press the right arrow key to push the ball to the right
     local x,y =  objects.ball.body:getLinearVelocity()
@@ -88,6 +89,7 @@ function love.update(dt)
 end
  
 function love.draw()
+  camera:set()
   love.graphics.setColor(0.28, 0.63, 0.05) -- set the drawing color to green for the ground
   love.graphics.polygon("fill", objects.ground.body:getWorldPoints(objects.ground.shape:getPoints())) -- draw a "filled in" polygon using the ground's coordinates
  
@@ -97,4 +99,5 @@ function love.draw()
   love.graphics.setColor(0.20, 0.20, 0.20) -- set the drawing color to grey for the blocks
   love.graphics.polygon("fill", objects.block1.body:getWorldPoints(objects.block1.shape:getPoints()))
   love.graphics.polygon("fill", objects.block2.body:getWorldPoints(objects.block2.shape:getPoints()))
+  camera:unset()
 end
