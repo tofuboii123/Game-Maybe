@@ -1,6 +1,7 @@
 require "camera"
+local grounded = true
 function love.load()
-  love.physics.setMeter(90) --the height of a meter our worlds will be 64px
+  love.physics.setMeter(90) --the height of a meter our worlds will be 90px
   world = love.physics.newWorld(0, 10*90, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 10 (instead of 9.81 just for gaminess sake)
  
   objects = {} -- table to hold all our physical objects
@@ -8,7 +9,7 @@ function love.load()
   --let's create the ground
   objects.ground = {}
   objects.ground.body = love.physics.newBody(world, 650/2, 650-50/2) --remember, the shape (the rectangle we create next) anchors to the body from its center, so we have to move it to (650/2, 650-50/2)
-  objects.ground.shape = love.physics.newRectangleShape(550, 50) --make a rectangle with a width of 650 and a height of 50
+  objects.ground.shape = love.physics.newRectangleShape(550, 50) --make a rectangle with a width of 550 and a height of 50
   objects.ground.fixture = love.physics.newFixture(objects.ground.body, objects.ground.shape); --attach shape to body
  
   --let's create a ball
@@ -20,7 +21,7 @@ function love.load()
  
   --let's create a couple blocks to play around with
   objects.block1 = {}
-  objects.block1.body = love.physics.newBody(world, 200, 550, "dynamic")
+  objects.block1.body = love.physics.newBody(world, 200, 550, "static")
   objects.block1.shape = love.physics.newRectangleShape(0, 0, 50, 100)
   objects.block1.fixture = love.physics.newFixture(objects.block1.body, objects.block1.shape, 5) -- A higher density gives it more mass.
  
@@ -28,7 +29,7 @@ function love.load()
   objects.block2.body = love.physics.newBody(world, 200, 400, "dynamic")
   objects.block2.shape = love.physics.newRectangleShape(0, 0, 100, 50)
   objects.block2.fixture = love.physics.newFixture(objects.block2.body, objects.block2.shape, 2)
- 
+  
   --initial graphics setup
   love.graphics.setBackgroundColor(0.41, 0.53, 0.97) --set the background color to a nice blue
   love.window.setMode(650, 650) --set the window dimensions to 650 by 650
@@ -37,7 +38,7 @@ end
  
 function love.update(dt)
   world:update(dt) --this puts the world into motion
-  camera:setPosition(objects.ball.body:getX() - 650/2, objects.ball.body:getY() - 650/2)
+  camera:setPosition(objects.ball.body:getX() - 650/2, 0)
   --here we are going to create some keyboard events
   if love.keyboard.isDown("right") then --press the right arrow key to push the ball to the right
     local x,y =  objects.ball.body:getLinearVelocity()
@@ -84,7 +85,9 @@ function love.update(dt)
   end
   
   if love.keyboard.isDown("d") then
-    objects.ball.body:setX(650/2)
+  objects.block1.fixture:setSensor(true)
+  objects.block2.fixture:setSensor(true)
+  grounded = false
   end
 end
  
@@ -97,7 +100,9 @@ function love.draw()
   love.graphics.circle("fill", objects.ball.body:getX(), objects.ball.body:getY(), objects.ball.shape:getRadius())
  
   love.graphics.setColor(0.20, 0.20, 0.20) -- set the drawing color to grey for the blocks
-  love.graphics.polygon("fill", objects.block1.body:getWorldPoints(objects.block1.shape:getPoints()))
-  love.graphics.polygon("fill", objects.block2.body:getWorldPoints(objects.block2.shape:getPoints()))
+  if grounded == true then
+    love.graphics.polygon("fill", objects.block1.body:getWorldPoints(objects.block1.shape:getPoints()))
+    love.graphics.polygon("fill", objects.block2.body:getWorldPoints(objects.block2.shape:getPoints()))
+  end
   camera:unset()
 end

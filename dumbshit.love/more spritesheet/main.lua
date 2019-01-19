@@ -37,7 +37,6 @@ local elapsedTime = 0
 function love.update(dt)
   if love.keyboard.isDown("right") then
     elapsedTime = elapsedTime + dt
-
     if(elapsedTime > 0.08) then
         if(currentFrame < 8) then
             currentFrame = currentFrame + 1
