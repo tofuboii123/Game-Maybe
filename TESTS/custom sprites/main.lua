@@ -10,6 +10,8 @@ function love.load()
   frames[2] = love.graphics.newImage("Animashun/sprite20001.png")
   frames[3] = love.graphics.newImage("Animashun/sprite20002.png")
   frames[4] = love.graphics.newImage("Animashun/sprite20003.png")
+  frames[5] = love.graphics.newImage("Animashun/sprite20004.png")
+  frames[6] = love.graphics.newImage("Animashun/sprite20005.png")
   activeFrame = frames[currentFrame]
 end
 
@@ -18,11 +20,11 @@ function love.update(dt)
   if(love.keyboard.isDown("right")) then
     elapsedTime = elapsedTime + dt
       
-    if(elapsedTime > 0.08) then
-      if(currentFrame < 4) then
+    if(elapsedTime > 0.10) then
+      if(currentFrame < 6) then
         currentFrame = currentFrame + 1
       else
-        currentFrame = 1
+        currentFrame = 3
       end
       
       activeFrame = frames[currentFrame]
