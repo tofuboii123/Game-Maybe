@@ -12,5 +12,5 @@ function Map:update(dt)
 end
 
 function Map:draw()
-  love.graphics.polygon("fill", intro.ground.body:getWorldPoints(intro.ground.shape:getPoints()))
+  drawIntro()
 end

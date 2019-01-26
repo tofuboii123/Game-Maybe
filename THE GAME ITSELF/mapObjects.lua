@@ -16,6 +16,10 @@ function loadIntro()
   intro.ground.image = "hey"
 end
 
+function drawIntro()
+  love.graphics.polygon("fill", intro.ground.body:getWorldPoints(intro.ground.shape:getPoints()))
+end
+
 function loadHub()
   
 end
