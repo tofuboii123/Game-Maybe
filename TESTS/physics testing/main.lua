@@ -1,11 +1,12 @@
 require "camera"
 local grounded = true
 function love.load()
+  image = love.graphics.newImage("shit.png")
+  quad = love.graphics.newQuad(0,0,64,64,image:getDimensions())
   love.physics.setMeter(90) --the height of a meter our worlds will be 90px
   world = love.physics.newWorld(0, 10*90, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 10 (instead of 9.81 just for gaminess sake)
  
   objects = {} -- table to hold all our physical objects
- 
   --let's create the ground
   objects.ground = {}
   objects.ground.body = love.physics.newBody(world, 650/2, 650-50/2) --remember, the shape (the rectangle we create next) anchors to the body from its center, so we have to move it to (650/2, 650-50/2)
@@ -15,7 +16,7 @@ function love.load()
   --let's create a ball
   objects.ball = {}
   objects.ball.body = love.physics.newBody(world, 650/2, 650/2, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
-  objects.ball.shape = love.physics.newCircleShape(30) --the ball's shape has a radius of 20
+  objects.ball.shape = love.physics.newRectangleShape(64,64) --the ball's shape has a radius of 20
   objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape, 1) -- Attach fixture to body and give it a density of 1.
   objects.ball.fixture:setRestitution(0) --let the ball bounce (0 = nobounce)
  
@@ -70,7 +71,7 @@ function love.update(dt)
   
   if love.keyboard.isDown("up") then --press the up arrow key to set the ball in the air
     local x,y =  objects.ball.body:getLinearVelocity()
-    if y == 0 then
+    if y < 0.05 and y > -0.05  then
       objects.ball.body:setLinearVelocity(x,-500)
     end
   end
@@ -100,7 +101,7 @@ function love.draw()
   love.graphics.polygon("fill", objects.ground.body:getWorldPoints(objects.ground.shape:getPoints())) -- draw a "filled in" polygon using the ground's coordinates
  
   love.graphics.setColor(0.76, 0.18, 0.05) --set the drawing color to red for the ball
-  love.graphics.circle("fill", objects.ball.body:getX(), objects.ball.body:getY(), objects.ball.shape:getRadius())
+  love.graphics.draw(image, objects.ball.body:getX() -32, objects.ball.body:getY() -32)
  
   love.graphics.setColor(0.20, 0.20, 0.20) -- set the drawing color to grey for the blocks
   if grounded == true then
