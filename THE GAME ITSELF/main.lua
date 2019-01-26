@@ -2,6 +2,7 @@
 --  File: main.lua                            --
 --  Description: Executes the program         --
 
+require "camera"
 require "physics"
 require "config"
 
@@ -16,5 +17,7 @@ end
 
 
 function love.draw()
-  
+camera:set()
+
+camera:unset()
 end
