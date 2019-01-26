@@ -85,9 +85,12 @@ function love.update(dt)
   end
   
   if love.keyboard.isDown("d") then
+  table.remove(objects,3)
+  table.remove(objects,4)
   objects.block1.fixture:setSensor(true)
   objects.block2.fixture:setSensor(true)
   grounded = false
+  table.remove(objects,3)
   end
 end
  
