@@ -1,21 +1,21 @@
 Object = require "classic"
 Player = Object:extend
 
-function Player.new(self)
+function Player:new()
   self.x = 0
   self.y = 0
   --Keep adding physics body and sprite here
 end
 
-function Player.update(self,dt)
+function Player:update(dt)
+  Player.controls()
+end
+
+function Player:draw()
   
 end
 
-function Player.draw(self)
-  
-end
-
-function Player.controls()
+function Player:controls()
   
   -- When the key is pressed
   function love.keypressed(key)
