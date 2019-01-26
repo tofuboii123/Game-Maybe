@@ -2,8 +2,7 @@ require "camera"
 Object = require "classic"
 Player = Object:extend()
 local flipped = 1
-love.keyboard.keysPressed = {}
-love.keyboard.keysReleased = {}
+local timer = 4
 
 function Player:new()
   self.image = love.graphics.newImage("Images/Tofu/yas.png")
@@ -14,8 +13,6 @@ end
 
 function Player:update(dt)
   Player.controls(self)
-  love.keyboard.keysPressed = {}
-  love.keyboard.keysReleased = {}
 end
 
 function Player:draw()
@@ -25,23 +22,29 @@ end
 function Player.controls(self)
   
   -- When the key is pressed
-  if love.keyboard.isDown("right") then
+  if love.keyboard.isDown("right") and timer == 4 then
    local x,y =  self.body:getLinearVelocity()
     self.body:setLinearVelocity(200, y)
     flipped = 1
-  elseif love.keyboard.isDown("left") then
+  end
+  if love.keyboard.isDown("left") and timer == 4 then
     local x,y =  self.body:getLinearVelocity()
     self.body:setLinearVelocity(-200, y)
     flipped = -1
-  elseif love.keyboard.isDown("z") then
+  end
+  if love.keyboard.isDown("z") and timer == 4 then
     local x,y =  self.body:getLinearVelocity()
     if y < 0.05 and y > -0.05 then
       self.body:setLinearVelocity(x,-500)
     end
   end
-  
-  if not love.keyboard.isDown("right") and not love.keyboard.isDown("left") then 
+  if not love.keyboard.isDown("right") and not love.keyboard.isDown("left") and timer == 4 then 
     local x,y =  self.body:getLinearVelocity()
     self.body:setLinearVelocity(0, y)
+  end
+  
+  timer = timer - 1
+  if timer == 0 then
+    timer = 4
   end
 end
