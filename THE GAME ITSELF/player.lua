@@ -4,6 +4,8 @@ Player = Object:extend()
 local flipped = 1
 local timer = 4
 
+
+
 function Player:new()
   self.image = love.graphics.newImage("Images/Tofu/yas.png")
   self.body = love.physics.newBody(world, 1280/2, 720/2, "dynamic")

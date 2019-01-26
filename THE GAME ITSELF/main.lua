@@ -26,8 +26,6 @@ end
 
 function love.draw()
 camera:set()
-love.graphics.print("hey baybee",0,0,0,2,2)
-love.graphics.print("this is a testo", 30, 30, 0, 2, 2)
 player:draw()
 map:draw()
 camera:unset()
