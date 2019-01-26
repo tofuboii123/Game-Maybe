@@ -28,9 +28,11 @@ function Player.controls(self)
   if love.keyboard.isDown("right") then
    local x,y =  self.body:getLinearVelocity()
     self.body:setLinearVelocity(200, y)
+    flipped = 1
   elseif love.keyboard.isDown("left") then
     local x,y =  self.body:getLinearVelocity()
     self.body:setLinearVelocity(-200, y)
+    flipped = -1
   elseif love.keyboard.isDown("z") then
     local x,y =  self.body:getLinearVelocity()
     if y < 0.05 and y > -0.05 then
