@@ -1,65 +1,45 @@
+require "camera"
 Object = require "classic"
-Player = Object:extend
+Player = Object:extend()
+local flipped = 1
+love.keyboard.keysPressed = {}
+love.keyboard.keysReleased = {}
 
 function Player:new()
-  self.x = DO
-  self.y = DO
-  self.image = PNG
-  self.body = love.physics.newBody(world, self.x, self.y)
+  self.image = love.graphics.newImage("Images/Tofu/yas.png")
+  self.body = love.physics.newBody(world, 1280/2, 720/2, "dynamic")
   self.shape = love.physics.newRectangleShape(32,64)
   self.fixture = love.physics.newFixture(self.body, self.shape)
 end
 
 function Player:update(dt)
-  Player.controls()
+  Player.controls(self)
+  love.keyboard.keysPressed = {}
+  love.keyboard.keysReleased = {}
 end
 
 function Player:draw()
-  
-end
- ----------------------------------------
-function love.keyboard.wasReleased(key)
-    if (love.keyboard.keysReleased[key]) then
-        return true
-    else
-        return false
-    end
+  love.graphics.draw(self.image, self.body:getX() - (flipped)*16, self.body:getY() - 32, 0, flipped, 1)
 end
 
--- called whenever a key is pressed
-function love.keypressed(key)
-    if key == 'escape' then
-        love.event.quit()
-    end
-
-    love.keyboard.keysPressed[key] = true
-end
-----------------------------------------
-
-function Player:controls()
+function Player.controls(self)
   
   -- When the key is pressed
-  if love.keyboard.wasPressed(right) then
+  if love.keyboard.isDown("right") then
    local x,y =  self.body:getLinearVelocity()
     self.body:setLinearVelocity(200, y)
+  elseif love.keyboard.isDown("left") then
+    local x,y =  self.body:getLinearVelocity()
+    self.body:setLinearVelocity(-200, y)
+  elseif love.keyboard.isDown("z") then
+    local x,y =  self.body:getLinearVelocity()
+    if y < 0.05 and y > -0.05 then
+      self.body:setLinearVelocity(x,-500)
+    end
   end
-  if love.keyboard.wasPressed(left) then
-    local x,y =  objects.ball.body:getLinearVelocity()
-    objects.ball.body:setLinearVelocity(-200, y)
-  end
-  if love.keyboard.wasPressed(up) then
-    --jump
-  end
-  if love.keyboard.wasPressed(z)
-
-  -- When key is released
-  if love.keyboard.wasReleased(right) then 
-    --Remove force from body
-  end
-  if love.keyboard.wasReleased(left) then 
-    --Remove force from body
-  end
-  if love.keyboard.wasPressed(z) then
-    --Probably nothing but lets make sure later
+  
+  if not love.keyboard.isDown("right") and not love.keyboard.isDown("left") then 
+    local x,y =  self.body:getLinearVelocity()
+    self.body:setLinearVelocity(0, y)
   end
 end
