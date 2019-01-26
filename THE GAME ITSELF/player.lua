@@ -40,10 +40,12 @@ function Player:controls()
   
   -- When the key is pressed
   if love.keyboard.wasPressed(right) then
-    --Apply force to body
+   local x,y =  self.body:getLinearVelocity()
+    self.body:setLinearVelocity(200, y)
   end
   if love.keyboard.wasPressed(left) then
-    --Apply force to body
+    local x,y =  objects.ball.body:getLinearVelocity()
+    objects.ball.body:setLinearVelocity(-200, y)
   end
   if love.keyboard.wasPressed(up) then
     --jump

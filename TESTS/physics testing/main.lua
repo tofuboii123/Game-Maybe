@@ -1,10 +1,11 @@
 require "camera"
 local grounded = true
+local flipped = 1
 function love.load()
-  image = love.graphics.newImage("shit.png")
+  image = love.graphics.newImage("yas.png")
   quad = love.graphics.newQuad(0,0,64,64,image:getDimensions())
   love.physics.setMeter(90) --the height of a meter our worlds will be 90px
-  world = love.physics.newWorld(0, 10*90, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 10 (instead of 9.81 just for gaminess sake)
+  world = love.physics.newWorld(0, 10*90, false) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 10 (instead of 9.81 just for gaminess sake)
  
   objects = {} -- table to hold all our physical objects
   --let's create the ground
@@ -16,9 +17,10 @@ function love.load()
   --let's create a ball
   objects.ball = {}
   objects.ball.body = love.physics.newBody(world, 650/2, 650/2, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
-  objects.ball.shape = love.physics.newRectangleShape(64,64) --the ball's shape has a radius of 20
-  objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape, 1) -- Attach fixture to body and give it a density of 1.
+  objects.ball.shape = love.physics.newRectangleShape(32,64) --the ball's shape has a radius of 20
+  objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape, 0) -- Attach fixture to body and give it a density of 1.
   objects.ball.fixture:setRestitution(0) --let the ball bounce (0 = nobounce)
+  objects.ball.fixture:setFriction(0)
  
   --let's create a couple blocks to play around with
   objects.block1 = {}
@@ -27,7 +29,7 @@ function love.load()
   objects.block1.fixture = love.physics.newFixture(objects.block1.body, objects.block1.shape, 5) -- A higher density gives it more mass.
  
   objects.block2 = {}
-  objects.block2.body = love.physics.newBody(world, 200, 400, "dynamic")
+  objects.block2.body = love.physics.newBody(world, 200, 400, "static")
   objects.block2.shape = love.physics.newRectangleShape(0, 0, 100, 50)
   objects.block2.fixture = love.physics.newFixture(objects.block2.body, objects.block2.shape, 2)
   
@@ -44,7 +46,7 @@ function love.update(dt)
   if love.keyboard.isDown("right") then --press the right arrow key to push the ball to the right
     local x,y =  objects.ball.body:getLinearVelocity()
     objects.ball.body:setLinearVelocity(200, y)
-    
+    flipped = 1
   end
   
   if love.keyboard.isDown("right") and love.keyboard.isDown("lshift") then --fast right
@@ -56,6 +58,7 @@ function love.update(dt)
   if love.keyboard.isDown("left") then --press the left arrow key to push the ball to the left
     local x,y =  objects.ball.body:getLinearVelocity()
     objects.ball.body:setLinearVelocity(-200, y)
+    flipped = -1
   end
   
   if love.keyboard.isDown("left") and love.keyboard.isDown("lshift") then --fast left
@@ -71,7 +74,7 @@ function love.update(dt)
   
   if love.keyboard.isDown("up") then --press the up arrow key to set the ball in the air
     local x,y =  objects.ball.body:getLinearVelocity()
-    if y < 0.05 and y > -0.05  then
+    if y < 0.05 and y > -0.05 then
       objects.ball.body:setLinearVelocity(x,-500)
     end
   end
@@ -101,7 +104,8 @@ function love.draw()
   love.graphics.polygon("fill", objects.ground.body:getWorldPoints(objects.ground.shape:getPoints())) -- draw a "filled in" polygon using the ground's coordinates
  
   love.graphics.setColor(0.76, 0.18, 0.05) --set the drawing color to red for the ball
-  love.graphics.draw(image, objects.ball.body:getX() -32, objects.ball.body:getY() -32)
+ 
+  love.graphics.draw(image, objects.ball.body:getX() - (flipped)*16, objects.ball.body:getY() - 32, 0, flipped, 1)
  
   love.graphics.setColor(0.20, 0.20, 0.20) -- set the drawing color to grey for the blocks
   if grounded == true then
