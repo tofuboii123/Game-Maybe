@@ -42,7 +42,6 @@ function love.draw()
     camera:set()
     map:draw(player)
     player:draw()
-    love.graphics.setColor(1, 1, 1)
     camera:unset()
   end
 end

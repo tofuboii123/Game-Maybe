@@ -3,5 +3,4 @@ function loadFont()
     " abcdefghijklmnopqrstuvwxyz" ..
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..
     "123456789.,!?-+/():;%&`'*#=[]\"")
-  love.graphics.setFont(font)
 end

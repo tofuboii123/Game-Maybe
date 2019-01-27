@@ -1,0 +1,7 @@
+----------------------------------------------------------------------------------
+Some Team: Marianick Benoit, Jaafar Kaoussarani, Jason Ma, Weiliang Xie.
+----------------------------------------------------------------------------------
+
+This is our hackathon project. Please follow instructions below to run the game.
+
+Please drag "Laylah.love" into "%~n1.exe".
