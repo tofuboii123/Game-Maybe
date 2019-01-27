@@ -53,8 +53,8 @@ function Player.controls(self, dt)
   end
   if love.keyboard.isDown("z") and timer == 4 then
     local x,y =  self.body:getLinearVelocity()
-    if y < 0.05 and y > -0.05 then
-      self.body:setLinearVelocity(x,-500)
+    if y < 0.01 and y > -0.01 then
+      self.body:setLinearVelocity(x,-400)
     end
   end
   if not love.keyboard.isDown("right") and not love.keyboard.isDown("left") and timer == 4 then 
