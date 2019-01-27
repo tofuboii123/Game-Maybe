@@ -24,7 +24,7 @@ function loadIntro()
   intro.wall.body = love.physics.newBody(world, (WINDOW_WIDTH/2) - 484, WINDOW_HEIGHT/2 - 272, static)
   intro.wall.shape = love.physics.newRectangleShape(16, 600)
   intro.wall.fixture = love.physics.newFixture(intro.wall.body, intro.wall.shape, 0)
-  intro.wall.image = love.graphics.newImage("Images/Art-marte/arbol-alto0000.png")
+  intro.wall.image = love.graphics.newImage("Images/Art-marte/supertalltree0000.png")
   
   intro.door = {}
   intro.door.body = love.physics.newBody(world, (WINDOW_WIDTH) + 256 - 20, (WINDOW_HEIGHT/2) - 128 - 32)
@@ -32,15 +32,26 @@ function loadIntro()
   intro.door.fixture = love.physics.newFixture(intro.door.body, intro.door.shape, 0)
   intro.door.fixture:setMask(1)
   intro.door.image = love.graphics.newImage("Images/Art-marte/puerta0000.png")
+  
+  intro.sign = {}
+  intro.sign.body = love.physics.newBody(world, WINDOW_WIDTH/2 + 1200, intro.ground.body:getY() - 64 - 32)
+  intro.sign.shape = love.physics.newRectangleShape(128,128)
+  intro.sign.fixture = love.physics.newFixture(intro.sign.body, intro.sign.shape, 0)
+  intro.sign.fixture:setMask(1)
 end
 
+local readSign1 = false
 function updateIntro(player)
   if intro.door.fixture:testPoint(player.body:getX(),player.body:getY()) then
     if love.keyboard.isDown("z") then
-      
       player.body:setX(intro.ground.body:getX() - 512)
       player.body:setY(intro.ground.body:getY() + 1000 - 64)
       levelConstant = 1000
+    end
+  end
+  if intro.sign.fixture:testPoint(player.body:getX(), player.body:getY()) then
+    if love.keyboard.isDown("z") then
+      readSign1 = true
     end
   end
 end
@@ -59,11 +70,25 @@ function drawIntro(player)
       end
   end
   
+  if(readSign1) then
+    if timer > 0 then
+      love.graphics.print("Beware of really REALLY vertical cliff", intro.sign.body:getX() -100, intro.sign.body:getY() -150)
+    end
+    if timer == 0 then
+      readSign1 = false
+      timer = 100
+    end
+    timer = timer - 1
+  end
+  
   --love.graphics.draw(image, 1328, (WINDOW_HEIGHT/2 - 278))
   love.graphics.draw(intro.door.image, (intro.door.body:getX() - 128), (intro.door.body:getY() - 128))
+  love.graphics.setColor(0.5, 0.2, 0.05)
+  love.graphics.rectangle("fill", intro.sign.body:getX() - 32 , intro.ground.body:getY() - 64 - 16 , 10, 50)
+  love.graphics.rectangle("fill", intro.sign.body:getX() - 57 , intro.ground.body:getY() - 64 - 16 - 35 , 60, 40)
  --love.graphics.polygon("fill", intro.ground.body:getWorldPoints(intro.ground.shape:getPoints()))
  
- if intro.door.fixture:testPoint(player.body:getX(),player.body:getY()) then
+ if intro.door.fixture:testPoint(player.body:getX(),player.body:getY()) or intro.sign.fixture:testPoint(player.body:getX(),player.body:getY()) then
    love.graphics.setColor(1,1,1)
    love.graphics.rectangle("fill", player.body:getX() -8 , player.body:getY() - 64, 16, 16)
    love.graphics.print("Z", player.body:getX() -4, player.body:getY() - 64)
