@@ -10,8 +10,11 @@ require "player"
 require "map"
 require "menu"
 
+WINDOW_WIDTH = 1280
+WINDOW_HEIGHT = 720
+
 function love.load()
-  windowSet(1280,720) --1280*720
+  windowSet(WINDOW_WIDTH, WINDOW_HEIGHT) --1280*720
   loadFont()
   menu = Menu()
   physicsInit()
@@ -24,7 +27,7 @@ function love.update(dt)
     menu:update(dt)
   else
     world:update(dt)
-    camera:setPosition(player.body:getX() - 1280/2, -720/2)
+    camera:setPosition(player.body:getX() - WINDOW_WIDTH/2, -WINDOW_HEIGHT/2)
     player:update(dt)
   end
 end
