@@ -38,7 +38,7 @@ end
 
 function Menu:draw()
   love.graphics.setColor(1,1,1)
-  love.graphics.setBackgroundColor(0.41, 0.53, 0.97)
+  love.graphics.setBackgroundColor(0.8, 0.8, 0.8)
   love.graphics.circle("fill", WINDOW_WIDTH/2 , 200, 100)
   love.graphics.setColor(0.52, 0.46, 0.39)
   love.graphics.polygon("fill", 0, 720, 320, 650, 640, 720, 0+960, 650, 320 + 960, 650, 640 +960, 720)
