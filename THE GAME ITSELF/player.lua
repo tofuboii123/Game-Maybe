@@ -14,7 +14,7 @@ local numberOfFrames
 
 function Player:new()
   self.image = idleImage
-  self.body = love.physics.newBody(world, 1280/2, 720/2, "dynamic")
+  self.body = love.physics.newBody(world, WINDOW_WIDTH/2, WINDOW_HEIGHT/2, "dynamic")
   self.shape = love.physics.newRectangleShape(32,64)
   self.fixture = love.physics.newFixture(self.body, self.shape)
 end
