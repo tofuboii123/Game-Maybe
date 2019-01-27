@@ -4,10 +4,8 @@ Player = Object:extend()
 local flipped = 1
 local timer = 4
 
-
-
 function Player:new()
-  self.image = love.graphics.newImage("Images/Tofu/yas.png")
+  self.image = love.graphics.newImage("Images/Tofu/Animashun/sprite20000.png")
   self.body = love.physics.newBody(world, 1280/2, 720/2, "dynamic")
   self.shape = love.physics.newRectangleShape(32,64)
   self.fixture = love.physics.newFixture(self.body, self.shape)
@@ -36,8 +34,8 @@ function Player.controls(self)
   end
   if love.keyboard.isDown("z") and timer == 4 then
     local x,y =  self.body:getLinearVelocity()
-    if y < 0.05 and y > -0.05 then
-      self.body:setLinearVelocity(x,-500)
+    if y < 0.01 and y > -0.01 then
+      self.body:setLinearVelocity(x,-400)
     end
   end
   if not love.keyboard.isDown("right") and not love.keyboard.isDown("left") and timer == 4 then 
