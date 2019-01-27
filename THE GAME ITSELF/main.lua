@@ -40,7 +40,7 @@ function love.draw()
     menu:draw()
   else
     camera:set()
-    map:draw()
+    map:draw(player)
     player:draw()
     camera:unset()
   end
