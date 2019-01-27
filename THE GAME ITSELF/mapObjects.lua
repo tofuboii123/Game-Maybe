@@ -47,6 +47,7 @@ end
 
 function drawIntro(player)
   -- Draw the wall
+  love.graphics.setColor(1,1,1)
   for x = (WINDOW_WIDTH/2) - 500, (WINDOW_WIDTH/2) - 500, 16 do 
     love.graphics.draw(intro.wall.image, x, intro.wall.body:getY())
   end
@@ -85,14 +86,27 @@ function loadHub()
   hub.door.fixture = love.physics.newFixture(hub.door.body, hub.door.shape, 0)
   hub.door.fixture:setMask(1)
   hub.door.image = love.graphics.newImage("Images/Art-marte/puerta0000.png")
+  
+  hub.sign = {}
+  hub.sign.body = love.physics.newBody(world, WINDOW_WIDTH/2 + 600, hub.ground.body:getY() - 64 - 32)
+  hub.sign.shape = love.physics.newRectangleShape(128,128)
+  hub.sign.fixture = love.physics.newFixture(hub.sign.body, hub.sign.shape, 0)
+  hub.sign.fixture:setMask(1)
+  
 end
 
 triedToGoBack = false
+readSign = false
 
 function updateHub(player)
   if hub.door.fixture:testPoint(player.body:getX(), player.body:getY()) then
     if love.keyboard.isDown("z") then
       triedToGoBack = true
+    end
+  end
+  if hub.sign.fixture:testPoint(player.body:getX(), player.body:getY()) then
+    if love.keyboard.isDown("z") then
+      readSign = true
     end
   end
 end
@@ -103,7 +117,7 @@ function drawHub(player)
   --love.graphics.circle("fill", 500, 500, 20)
   if(triedToGoBack) then
     if timer > 0 then
-      love.graphics.print("Seems to be locked...", hub.door.body:getX() + 128, hub.door.body:getY())
+      love.graphics.print("Seems to be locked...", hub.door.body:getX() -100, hub.door.body:getY() -150)
     end
     if timer == 0 then
       triedToGoBack = false
@@ -111,6 +125,19 @@ function drawHub(player)
     end
     timer = timer - 1
   end
+  
+  if(readSign) then
+    if timer > 0 then
+      love.graphics.print("Devs fell asle-", hub.sign.body:getX() -100, hub.sign.body:getY() -150)
+      love.graphics.print("(Actual Game Coming Soon!)", hub.sign.body:getX() -100, hub.sign.body:getY() -50)
+    end
+    if timer == 0 then
+      readSign = false
+      timer = 100
+    end
+    timer = timer - 1
+  end
+  
   
   for x =  hub.ground.body:getX() - 1024, hub.ground.body:getX() + 1024, 16 do 
       for y = (hub.ground.body:getY() - 32), hub.ground.body:getY(), 16 do  
@@ -121,8 +148,11 @@ function drawHub(player)
   end
   
   love.graphics.draw(hub.door.image, hub.ground.body:getX() - 128, hub.ground.body:getY() - 256 - 32)
+  love.graphics.setColor(0.5, 0.2, 0.05)
+  love.graphics.rectangle("fill", hub.sign.body:getX() - 32 , hub.ground.body:getY() - 64 - 16 , 10, 50)
+  love.graphics.rectangle("fill", hub.sign.body:getX() - 57 , hub.ground.body:getY() - 64 - 16 - 35 , 60, 40)
   
-  if hub.door.fixture:testPoint(player.body:getX(), player.body:getY()) then
+  if hub.door.fixture:testPoint(player.body:getX(), player.body:getY()) or hub.sign.fixture:testPoint(player.body:getX(), player.body:getY()) then
     love.graphics.setColor(1,1,1)
     love.graphics.rectangle("fill", player.body:getX() -8 , player.body:getY() - 64, 16, 16)
     love.graphics.print("Z", player.body:getX() -4, player.body:getY() - 64)

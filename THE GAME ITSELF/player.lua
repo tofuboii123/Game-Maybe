@@ -27,7 +27,7 @@ function Player:update(dt)
 end
 
 function Player:draw()
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(0, 0, 0)
   love.graphics.draw(activeFrame, self.body:getX() - (flipped)*16, self.body:getY() - 32, 0, flipped, 1)
 end
 
