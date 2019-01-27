@@ -22,7 +22,7 @@ function loadIntro()
   
   intro.wall= {}
   intro.wall.body = love.physics.newBody(world, (WINDOW_WIDTH/2) - 484, WINDOW_HEIGHT/2 - 272, static)
-  intro.wall.shape = love.physics.newRectangleShape(16, 600)
+  intro.wall.shape = love.physics.newRectangleShape(64, 600)
   intro.wall.fixture = love.physics.newFixture(intro.wall.body, intro.wall.shape, 0)
   intro.wall.image = love.graphics.newImage("Images/Art-marte/supertalltree0000.png")
   
@@ -60,7 +60,7 @@ function drawIntro(player)
   -- Draw the wall
   love.graphics.setColor(1,1,1)
   for x = (WINDOW_WIDTH/2) - 500, (WINDOW_WIDTH/2) - 500, 16 do 
-    love.graphics.draw(intro.wall.image, x, intro.wall.body:getY())
+    love.graphics.draw(intro.wall.image, x, intro.wall.body:getY() - 1000)
   end
   
   -- Draw the ground
