@@ -36,7 +36,7 @@ end
 
 function updateIntro(player)
   if intro.door.fixture:testPoint(player.body:getX(),player.body:getY()) then
-    if love.keyboard.isDown("x") then
+    if love.keyboard.isDown("z") then
       
       player.body:setX(intro.ground.body:getX() - 512)
       player.body:setY(intro.ground.body:getY() + 1000 - 64)
@@ -65,7 +65,7 @@ function drawIntro(player)
  if intro.door.fixture:testPoint(player.body:getX(),player.body:getY()) then
    love.graphics.setColor(1,1,1)
    love.graphics.rectangle("fill", player.body:getX() -8 , player.body:getY() - 64, 16, 16)
-   love.graphics.print("X", player.body:getX() -4, player.body:getY() - 64)
+   love.graphics.print("Z", player.body:getX() -4, player.body:getY() - 64)
 end
 end
 
@@ -91,7 +91,7 @@ triedToGoBack = false
 
 function updateHub(player)
   if hub.door.fixture:testPoint(player.body:getX(), player.body:getY()) then
-    if love.keyboard.isDown("x") then
+    if love.keyboard.isDown("z") then
       triedToGoBack = true
     end
   end
@@ -125,7 +125,7 @@ function drawHub(player)
   if hub.door.fixture:testPoint(player.body:getX(), player.body:getY()) then
     love.graphics.setColor(1,1,1)
     love.graphics.rectangle("fill", player.body:getX() -8 , player.body:getY() - 64, 16, 16)
-    love.graphics.print("X", player.body:getX() -4, player.body:getY() - 64)
+    love.graphics.print("Z", player.body:getX() -4, player.body:getY() - 64)
   end
 end
 

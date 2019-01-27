@@ -54,7 +54,7 @@ function Player.controls(self, dt)
     Player:animation()
     Player:elapsedTime(dt)
   end
-  if (not love.keyboard.isDown("z") and not love.keyboard.isDown("left") and not love.keyboard.isDown("right") and timer == 4) then
+  if (not love.keyboard.isDown("x") and not love.keyboard.isDown("left") and not love.keyboard.isDown("right") and timer == 4) then
     state = "idle"
     Player:animation()
     activeFrame = idleImage
@@ -68,7 +68,7 @@ function Player.controls(self, dt)
   function love.keypressed(key)
     if key == "escape" then
       love.event.quit()
-    elseif key == "z" then
+    elseif key == "x" then
      -- state = "jumping"
       local x_Velocity, y_Velocity =  self.body:getLinearVelocity()
       if y_Velocity < 0.01 and y_Velocity > -0.01 then
