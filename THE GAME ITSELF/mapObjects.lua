@@ -13,6 +13,8 @@ end
 
 -- INTRO LEVEL --
 function loadIntro()
+  
+  outdoors = love.graphics.newImage("Images/Art-marte/outside.png")
   intro = {} -- Table to hold all our intro level objects
   intro.ground = {}
   intro.ground.body = love.physics.newBody(world, WINDOW_WIDTH/2 + 512, WINDOW_HEIGHT/2, static)
@@ -58,6 +60,9 @@ end
 
 function drawIntro(player)
   -- Draw the wall
+  love.graphics.draw(outdoors, 0-1280, -720/2)
+  love.graphics.draw(outdoors, 0, -720/2)
+  love.graphics.draw(outdoors, 0+2000, -720/2)
   love.graphics.setColor(1,1,1)
   for x = (WINDOW_WIDTH/2) - 500, (WINDOW_WIDTH/2) - 500, 16 do 
     love.graphics.draw(intro.wall.image, x, intro.wall.body:getY() - 1000)
@@ -99,6 +104,7 @@ end
 -- HUB (+1000) --
 
 function loadHub()
+  manor = love.graphics.newImage("Images/Art-marte/manor.png")
   hub = {} -- Table to hold all our intro level objects
   hub.ground = {}
   hub.ground.body = love.physics.newBody(world, WINDOW_WIDTH/2, 1000 + WINDOW_HEIGHT/2)
@@ -139,7 +145,9 @@ end
 
 function drawHub(player)
   --love.graphics.polygon("fill", hub.ground.body:getWorldPoints(hub.ground.shape:getPoints()))
-  
+  love.graphics.draw(manor, -75-1280, 650)
+  love.graphics.draw(manor, -75, 650)
+  love.graphics.draw(manor, -75+ 1280, 650)
   --love.graphics.circle("fill", 500, 500, 20)
   if(triedToGoBack) then
     if timer > 0 then
