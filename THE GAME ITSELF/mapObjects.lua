@@ -36,6 +36,7 @@ end
 function updateIntro(player)
   if intro.door.fixture:testPoint(player.body:getX(),player.body:getY()) then
     if love.keyboard.isDown("x") then
+      
       player.body:setX(intro.ground.body:getX() - 512)
       player.body:setY(intro.ground.body:getY() + 1000 - 64)
       levelConstant = 1000
