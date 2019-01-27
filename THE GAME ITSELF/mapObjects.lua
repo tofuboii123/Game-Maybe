@@ -86,6 +86,7 @@ function drawIntro(player)
   love.graphics.setColor(0.5, 0.2, 0.05)
   love.graphics.rectangle("fill", intro.sign.body:getX() - 32 , intro.ground.body:getY() - 64 - 16 , 10, 50)
   love.graphics.rectangle("fill", intro.sign.body:getX() - 57 , intro.ground.body:getY() - 64 - 16 - 35 , 60, 40)
+  love.graphics.setColor(1,1,1)
  --love.graphics.polygon("fill", intro.ground.body:getWorldPoints(intro.ground.shape:getPoints()))
  
  if intro.door.fixture:testPoint(player.body:getX(),player.body:getY()) or intro.sign.fixture:testPoint(player.body:getX(),player.body:getY()) then

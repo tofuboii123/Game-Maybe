@@ -3,8 +3,9 @@ Object = require "classic"
 Menu = Object:extend()
 menuDisplay = true
 menuTimer = 5
-oscilate = true
 volumeState = 0
+moon = love.graphics.newImage("Images/Art-marte/luna0000.png")
+LOGO = love.graphics.newImage("Images/Art-marte/title0000.png")
 
 function Menu:new()
   self.menuState = 0
@@ -71,10 +72,11 @@ end
 function Menu:draw()
   love.graphics.setColor(1,1,1)
   love.graphics.setBackgroundColor(0.4, 0.4, 0.4)
-  love.graphics.circle("fill", WINDOW_WIDTH/2 , 200, 100)
-  if oscilate then
-    love.graphics.circle("fill", WINDOW_WIDTH/2 , 200, 105)
-  end
+  love.graphics.circle("fill", 500 , 100, 100)
+  love.graphics.setColor(0.7,0.7,0.7)
+  love.graphics.draw(moon, 515, 50)
+  love.graphics.setColor(1,1,1)
+  love.graphics.draw(LOGO, 350, 100)
   love.graphics.setColor(0.52, 0.46, 0.39)
   love.graphics.polygon("fill", 0, 720, 320, 650, 640, 720, 0+960, 650, 320 + 960, 650, 640 +960, 720)
   if self.subMenu == 0 then
