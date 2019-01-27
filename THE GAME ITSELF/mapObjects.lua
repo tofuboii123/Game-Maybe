@@ -14,19 +14,30 @@ function loadIntro()
   intro = {} -- Table to hold all our intro level objects
   intro.ground = {}
   intro.ground.body = love.physics.newBody(world, WINDOW_WIDTH/2, WINDOW_HEIGHT/2)
-  intro.ground.shape = love.physics.newRectangleShape(1000, 50)
+  intro.ground.shape = love.physics.newRectangleShape(2000, 50)
   intro.ground.fixture = love.physics.newFixture(intro.ground.body, intro.ground.shape, 0)
   intro.ground.image = love.graphics.newImage("Images/Art-marte/stone0000.png")
+  
   intro.wall= {}
+  intro.wall.body = love.physics.newBody(world, (WINDOW_WIDTH/2) - 484, WINDOW_HEIGHT/2 - 272)
+  intro.wall.shape = love.physics.newRectangleShape(16, 600)
+  intro.wall.fixture = love.physics.newFixture(intro.wall.body, intro.wall.shape, 0)
+  intro.wall.image = love.graphics.newImage("Images/Art-marte/arbol-alto0000.png")
 end
 
 function drawIntro()
-  for x = (WINDOW_WIDTH/2) - 500, (WINDOW_WIDTH/2) + 500, 16 do 
+  -- Draw the wall
+  for x = (WINDOW_WIDTH/2) - 500, (WINDOW_WIDTH/2) - 500, 16 do 
+    love.graphics.draw(intro.wall.image, x, intro.wall.body:getY())
+  end
+  
+  -- Draw the ground
+  for x = (WINDOW_WIDTH/2) - 500, (WINDOW_WIDTH/2) + 1000, 16 do 
       for y = (WINDOW_HEIGHT/2 - 25), WINDOW_HEIGHT, 16 do  
         love.graphics.draw(intro.ground.image, x, y)
       end
   end
- -- love.graphics.polygon("fill", intro.ground.body:getWorldPoints(intro.ground.shape:getPoints()))
+ --love.graphics.polygon("fill", intro.wall.body:getWorldPoints(intro.wall.shape:getPoints()))
 end
 
 -- HUB (+1000) --
