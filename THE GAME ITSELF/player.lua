@@ -47,12 +47,6 @@ function Player.controls(self, dt)
     Player:animation()
     Player:elapsedTime(dt)
   end
-  if love.keyboard.isDown("z") and timer == 4 then
-    local x,y =  self.body:getLinearVelocity()
-    if y < 0.01 and y > -0.01 then
-      self.body:setLinearVelocity(x,-400)
-    end
-  end
   if (not love.keyboard.isDown("z") and not love.keyboard.isDown("left") and not love.keyboard.isDown("right") and timer == 4) then
     state = "idle"
     Player:animation()
@@ -61,6 +55,18 @@ function Player.controls(self, dt)
   if not love.keyboard.isDown("right") and not love.keyboard.isDown("left") and timer == 4 then 
     local x,y =  self.body:getLinearVelocity()
     self.body:setLinearVelocity(0, y)
+  end
+  
+  -- Exits game from gameplay
+  function love.keypressed(key)
+    if key == "escape" then
+      love.event.quit()
+    elseif key == "z" then
+      local x,y =  self.body:getLinearVelocity()
+      if y < 0.01 and y > -0.01 then
+        self.body:setLinearVelocity(x,-550)
+      end
+    end
   end
   
   timer = timer - 1

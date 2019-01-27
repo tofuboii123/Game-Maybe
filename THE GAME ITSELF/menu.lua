@@ -6,24 +6,27 @@ menuTimer = 5
 
 function Menu:new()
   self.menuState = 0
-  self.music = love.audio.newSource("Music/Arabic 1.wav","static")
+  self.music = love.audio.newSource("Music/spooky-ambience.wav","static")
   self.logo = WOW
 end
 
 function Menu:update(dt)
   love.audio.play(self.music)
-  if love.keyboard.isDown("return") and self.menuState == 0 and menuTimer == 5 then
-    love.audio.stop(self.music)
-    menu = false
-  end
-  if love.keyboard.isDown("down") and menuTimer == 5 then
-    if self.menuState < 3 then
-      self.menuState = self.menuState + 1
-    end
-  end
-  if love.keyboard.isDown("up") and menuTimer == 5 then
-    if self.menuState > 0 then
-      self.menuState = self.menuState - 1
+  
+  function love.keypressed(key)
+    if key == "return" and self.menuState == 0 then
+      love.audio.stop(self.music)
+      menu = false
+    elseif (key == "return") and self.menuState == 3 then
+      love.event.quit()
+    elseif (key == "down") then
+      if self.menuState < 3 then
+        self.menuState = self.menuState + 1
+      end
+    elseif (key == "up") then
+      if self.menuState > 0 then
+        self.menuState = self.menuState - 1
+      end
     end
   end
   
