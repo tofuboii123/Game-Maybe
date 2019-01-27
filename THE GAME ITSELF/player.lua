@@ -11,7 +11,8 @@ local frames = {}
 local elapsedTime = 0
 local currentFrame = 1
 local numberOfFrames
-local initialY
+
+footsteps = love.audio.newSource("SFX/footsteps_outside.wav", "static")
 
 function Player:new()
   self.image = idleImage
@@ -24,6 +25,14 @@ end
 
 function Player:update(dt)
   Player.controls(self, dt)
+  
+  if(state == "running") then
+    love.audio.play(footsteps)
+  elseif(state == "jumping") then
+    love.audio.stop(footsteps)
+  else
+    love.audio.stop(footsteps)
+  end
 end
 
 function Player:draw()
@@ -47,12 +56,14 @@ function Player.controls(self, dt)
     end
   end
   if love.keyboard.isDown("left") and timer == 4 then
-    local x,y =  self.body:getLinearVelocity()
-    self.body:setLinearVelocity(-200, y)
-    flipped = -1
-    state = "running"
-    Player:animation()
-    Player:elapsedTime(dt)
+    if(state ~= "jumping") then
+      local x,y =  self.body:getLinearVelocity()
+      self.body:setLinearVelocity(-200, y)
+      flipped = -1
+      state = "running"
+      Player:animation()
+      Player:elapsedTime(dt)
+    end
   end
   if (not love.keyboard.isDown("x") and not love.keyboard.isDown("left") and not love.keyboard.isDown("right") and timer == 4) then
     state = "idle"
@@ -69,12 +80,11 @@ function Player.controls(self, dt)
     if key == "escape" then
       love.event.quit()
     elseif key == "x" then
-     -- state = "jumping"
+      state = "jumping"
       local x_Velocity, y_Velocity =  self.body:getLinearVelocity()
       if y_Velocity < 0.01 and y_Velocity > -0.01 then
         self.body:setLinearVelocity(x_Velocity, -550)
       end
-      
       Player:animation()
       Player:elapsedTime(dt)
     end
