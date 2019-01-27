@@ -12,7 +12,6 @@ end
 -- INTRO LEVEL --
 function loadIntro()
   intro = {} -- Table to hold all our intro level objects
-
   intro.ground = {}
   intro.ground.body = love.physics.newBody(world, WINDOW_WIDTH/2, WINDOW_HEIGHT/2)
   intro.ground.shape = love.physics.newRectangleShape(1000, 50)
