@@ -17,7 +17,7 @@ function Player:new()
   self.image = idleImage
   self.body = love.physics.newBody(world, WINDOW_WIDTH/2, WINDOW_HEIGHT/2, "dynamic")
   initialY = WINDOW_HEIGHT/2
-  self.shape = love.physics.newRectangleShape(32,64)
+  self.shape = love.physics.newRectangleShape(32, 64)
   self.fixture = love.physics.newFixture(self.body, self.shape)
   self.fixture:setGroupIndex(1)
 end
@@ -69,7 +69,7 @@ function Player.controls(self, dt)
     if key == "escape" then
       love.event.quit()
     elseif key == "z" then
-      state = "jumping"
+     -- state = "jumping"
       local x_Velocity, y_Velocity =  self.body:getLinearVelocity()
       if y_Velocity < 0.01 and y_Velocity > -0.01 then
         self.body:setLinearVelocity(x_Velocity, -550)

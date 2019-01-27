@@ -12,6 +12,7 @@ require "menu"
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
+levelConstant = 0
 
 function love.load()
   windowSet(WINDOW_WIDTH, WINDOW_HEIGHT) --1280*720
@@ -27,7 +28,7 @@ function love.update(dt)
     menu:update(dt)
   else
     world:update(dt)
-    camera:setPosition(player.body:getX() - WINDOW_WIDTH/2, -WINDOW_HEIGHT/2)
+    camera:setPosition(player.body:getX() - WINDOW_WIDTH/2, -WINDOW_HEIGHT/2 + levelConstant)
     map:update(dt,player)
     player:update(dt)
   end
