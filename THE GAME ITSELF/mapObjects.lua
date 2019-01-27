@@ -2,6 +2,8 @@
 require "physics"
 require "player"
 local timer = 100
+MANORMUSIC = love.audio.newSource("Music/spooky-ambience-2.wav","static")
+
 --GENERAL--
 function loadGeneral()
   general = {} -- Table to hold all our general objects
@@ -15,6 +17,7 @@ end
 function loadIntro()
   
   outdoors = love.graphics.newImage("Images/Art-marte/outside.png")
+  
   intro = {} -- Table to hold all our intro level objects
   intro.ground = {}
   intro.ground.body = love.physics.newBody(world, WINDOW_WIDTH/2 + 512, WINDOW_HEIGHT/2, static)
@@ -46,6 +49,7 @@ local readSign1 = false
 function updateIntro(player)
   if intro.door.fixture:testPoint(player.body:getX(),player.body:getY()) then
     if love.keyboard.isDown("z") then
+      love.audio.play(MANORMUSIC)
       player.body:setX(intro.ground.body:getX() - 512)
       player.body:setY(intro.ground.body:getY() + 1000 - 64)
       levelConstant = 1000
