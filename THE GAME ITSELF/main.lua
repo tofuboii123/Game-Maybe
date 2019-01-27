@@ -28,6 +28,7 @@ function love.update(dt)
   else
     world:update(dt)
     camera:setPosition(player.body:getX() - WINDOW_WIDTH/2, -WINDOW_HEIGHT/2)
+    map:update(dt,player)
     player:update(dt)
   end
 end

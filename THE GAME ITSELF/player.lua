@@ -19,6 +19,7 @@ function Player:new()
   initialY = WINDOW_HEIGHT/2
   self.shape = love.physics.newRectangleShape(32,64)
   self.fixture = love.physics.newFixture(self.body, self.shape)
+  self.fixture:setGroupIndex(1)
 end
 
 function Player:update(dt)

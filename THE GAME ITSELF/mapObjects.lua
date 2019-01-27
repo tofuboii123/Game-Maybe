@@ -1,5 +1,6 @@
 -- COLLECTION OF MAP OBJECTS -- 
 require "physics"
+require "player"
 --GENERAL--
 function loadGeneral()
   general = {} -- Table to hold all our general objects
@@ -25,13 +26,22 @@ function loadIntro()
   intro.wall.image = love.graphics.newImage("Images/Art-marte/arbol-alto0000.png")
   
   intro.door = {}
-  intro.door.body = love.physics.newBody(world, (WINDOW_WIDTH - 872), (WINDOW_HEIGHT/2 - 153))
+  intro.door.body = love.physics.newBody(world, (WINDOW_WIDTH), (WINDOW_HEIGHT/2))
   intro.door.shape = love.physics.newRectangleShape(256, 256)
   intro.door.fixture = love.physics.newFixture(intro.door.body, intro.door.shape, 0)
-  intro.door.fixture:setSensor(true)
+  intro.door.fixture:setMask(1)
   intro.door.image = love.graphics.newImage("Images/Art-marte/puerta0000.png")
 end
 image = love.graphics.newImage("Images/Art-marte/puerta0000.png")
+
+function updateIntro(player)
+  if intro.door.fixture:testPoint(player.body:getX(),player.body:getY()) then
+    if love.keyboard.isDown('x') then
+      love.event.quit()
+    end
+  end
+end
+
 function drawIntro()
   -- Draw the wall
   for x = (WINDOW_WIDTH/2) - 500, (WINDOW_WIDTH/2) - 500, 16 do 

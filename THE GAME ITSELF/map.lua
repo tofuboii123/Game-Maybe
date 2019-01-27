@@ -11,8 +11,8 @@ function Map:new()
   loadLevel3()
 end
 
-function Map:update(dt)
-  
+function Map:update(dt,player)
+  updateIntro(player)
 end
 
 function Map:draw()
