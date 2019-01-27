@@ -1,6 +1,7 @@
 -- COLLECTION OF MAP OBJECTS -- 
 require "physics"
 require "player"
+local timer = 100
 --GENERAL--
 function loadGeneral()
   general = {} -- Table to hold all our general objects
@@ -44,7 +45,7 @@ function updateIntro(player)
   end
 end
 
-function drawIntro()
+function drawIntro(player)
   -- Draw the wall
   for x = (WINDOW_WIDTH/2) - 500, (WINDOW_WIDTH/2) - 500, 16 do 
     love.graphics.draw(intro.wall.image, x, intro.wall.body:getY())
@@ -60,6 +61,12 @@ function drawIntro()
   --love.graphics.draw(image, 1328, (WINDOW_HEIGHT/2 - 278))
   love.graphics.draw(intro.door.image, (intro.door.body:getX() - 128), (intro.door.body:getY() - 128))
  --love.graphics.polygon("fill", intro.ground.body:getWorldPoints(intro.ground.shape:getPoints()))
+ 
+ if intro.door.fixture:testPoint(player.body:getX(),player.body:getY()) then
+   love.graphics.setColor(1,1,1)
+   love.graphics.rectangle("fill", player.body:getX() -8 , player.body:getY() - 64, 16, 16)
+   love.graphics.print("X", player.body:getX() -4, player.body:getY() - 64)
+end
 end
 
 -- HUB (+1000) --
@@ -90,12 +97,19 @@ function updateHub(player)
   end
 end
 
-function drawHub()
+function drawHub(player)
   --love.graphics.polygon("fill", hub.ground.body:getWorldPoints(hub.ground.shape:getPoints()))
   
   --love.graphics.circle("fill", 500, 500, 20)
   if(triedToGoBack) then
-    love.graphics.print("Seems to be locked...", hub.door.body:getX(), hub.door.body:getY())
+    if timer > 0 then
+      love.graphics.print("Seems to be locked...", hub.door.body:getX() + 128, hub.door.body:getY())
+    end
+    if timer == 0 then
+      triedToGoBack = false
+      timer = 100
+    end
+    timer = timer - 1
   end
   
   for x =  hub.ground.body:getX() - 1024, hub.ground.body:getX() + 1024, 16 do 
@@ -108,8 +122,11 @@ function drawHub()
   
   love.graphics.draw(hub.door.image, hub.ground.body:getX() - 128, hub.ground.body:getY() - 256 - 32)
   
-  
-  
+  if hub.door.fixture:testPoint(player.body:getX(), player.body:getY()) then
+    love.graphics.setColor(1,1,1)
+    love.graphics.rectangle("fill", player.body:getX() -8 , player.body:getY() - 64, 16, 16)
+    love.graphics.print("X", player.body:getX() -4, player.body:getY() - 64)
+  end
 end
 
 -- LEVEL 1 (+2000) --
