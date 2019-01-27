@@ -11,10 +11,12 @@ local frames = {}
 local elapsedTime = 0
 local currentFrame = 1
 local numberOfFrames
+local initialY
 
 function Player:new()
   self.image = idleImage
   self.body = love.physics.newBody(world, WINDOW_WIDTH/2, WINDOW_HEIGHT/2, "dynamic")
+  initialY = WINDOW_HEIGHT/2
   self.shape = love.physics.newRectangleShape(32,64)
   self.fixture = love.physics.newFixture(self.body, self.shape)
 end
@@ -32,12 +34,16 @@ function Player.controls(self, dt)
   
   -- When the key is pressed
   if love.keyboard.isDown("right") and timer == 4 then -- timer is for correcting weird physics glitches.
-   local x,y =  self.body:getLinearVelocity()
-    self.body:setLinearVelocity(200, y)
-    flipped = 1
-    state = "running"
-    Player:animation()
-    Player:elapsedTime(dt)
+    if (state ~= "jumping") then
+      state = "running"
+      local x,y =  self.body:getLinearVelocity()
+      self.body:setLinearVelocity(200, y)
+      flipped = 1
+      Player:animation()
+      Player:elapsedTime(dt)
+    else
+      activeFrame = frames[1]
+    end
   end
   if love.keyboard.isDown("left") and timer == 4 then
     local x,y =  self.body:getLinearVelocity()
@@ -62,10 +68,14 @@ function Player.controls(self, dt)
     if key == "escape" then
       love.event.quit()
     elseif key == "z" then
-      local x,y =  self.body:getLinearVelocity()
-      if y < 0.01 and y > -0.01 then
-        self.body:setLinearVelocity(x,-550)
+      state = "jumping"
+      local x_Velocity, y_Velocity =  self.body:getLinearVelocity()
+      if y_Velocity < 0.01 and y_Velocity > -0.01 then
+        self.body:setLinearVelocity(x_Velocity, -550)
       end
+      
+      Player:animation()
+      Player:elapsedTime(dt)
     end
   end
   
@@ -86,7 +96,10 @@ function Player:animation()
     frames[3] = love.graphics.newImage("Images/Tofu/Animashun/sprite20003.png")
     frames[4] = love.graphics.newImage("Images/Tofu/Animashun/sprite20004.png")
     frames[5] = love.graphics.newImage("Images/Tofu/Animashun/sprite20005.png")
-    numberOfFrames = 4
+    numberOfFrames = 5
+  elseif (state == "jumping") then -- Load the frames with the jumping sprite.
+    frames[1] = love.graphics.newImage("Images/Tofu/Animashun/sprite20003.png")
+    numberOfFrames = 1
   end
 end
 
@@ -95,8 +108,10 @@ function Player:elapsedTime(dt)
     if(elapsedTime > dt) then
       if(currentFrame < numberOfFrames) then
         currentFrame = currentFrame + 1
-      else
+      elseif(state == "running") then
         currentFrame = 2
+      else
+        currentFrame = 1
       end
         activeFrame = frames[currentFrame]
         elapsedTime = 0
