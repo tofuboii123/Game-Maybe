@@ -15,7 +15,7 @@ local initialY
 
 function Player:new()
   self.image = idleImage
-  self.body = love.physics.newBody(world, WINDOW_WIDTH/2, WINDOW_HEIGHT/2, "dynamic")
+  self.body = love.physics.newBody(world, 0, WINDOW_HEIGHT/2, "dynamic")
   initialY = WINDOW_HEIGHT/2
   self.shape = love.physics.newRectangleShape(32,64)
   self.fixture = love.physics.newFixture(self.body, self.shape)

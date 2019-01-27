@@ -17,19 +17,16 @@ function loadIntro()
   intro.ground.shape = love.physics.newRectangleShape(1000, 50)
   intro.ground.fixture = love.physics.newFixture(intro.ground.body, intro.ground.shape, 0)
   intro.ground.image = love.graphics.newImage("Images/Art-marte/stone0000.png")
+  intro.wall= {}
 end
 
 function drawIntro()
-  love.graphics.polygon("fill", intro.ground.body:getWorldPoints(intro.ground.shape:getPoints()))
-  
-  for x = 0, WINDOW_WIDTH, 16 do 
-      for y = 550, WINDOW_HEIGHT, 16 do  
-        
+  for x = (WINDOW_WIDTH/2) - 500, (WINDOW_WIDTH/2) + 500, 16 do 
+      for y = (WINDOW_HEIGHT/2 - 25), WINDOW_HEIGHT, 16 do  
         love.graphics.draw(intro.ground.image, x, y)
-        
       end
   end
-  
+ -- love.graphics.polygon("fill", intro.ground.body:getWorldPoints(intro.ground.shape:getPoints()))
 end
 
 -- HUB (+1000) --
@@ -41,14 +38,16 @@ function loadHub()
   hub.ground.body = love.physics.newBody(world, WINDOW_WIDTH/2, 1000 + WINDOW_HEIGHT/2)
   hub.ground.shape = love.physics.newRectangleShape(1000, 50)
   hub.ground.fixture = love.physics.newFixture(hub.ground.body, hub.ground.shape, 0)
-  hub.ground.image = love.graphics.newImage("Images/Art-marte/stone0000.png")
+  hub.ground.image = love.graphics.newImage("Images/Art-marte/wood0000.png")
 end
 
 function drawHub()
   love.graphics.polygon("fill", hub.ground.body:getWorldPoints(hub.ground.shape:getPoints()))
   
-  for x = 0, WINDOW_WIDTH, 16 do 
-      for y = 550, WINDOW_HEIGHT, 16 do  
+  love.graphics.circle("fill", 500, 500, 20)
+  
+  for x =  0, 1000, 16 do 
+      for y = (WINDOW_HEIGHT- 25), WINDOW_HEIGHT, 16 do  
         
         love.graphics.draw(hub.ground.image, x, y)
         
@@ -70,10 +69,10 @@ end
 
 
 function drawLevel1()
-  love.graphics.polygon("fill", level1.ground.body:getWorldPoints(level1.ground.shape:getPoints()))
+  --love.graphics.polygon("fill", level1.ground.body:getWorldPoints(level1.ground.shape:getPoints()))
   
   for x = 0, WINDOW_WIDTH, 16 do 
-      for y = 550, WINDOW_HEIGHT, 16 do  
+      for y = ((2000 + (WINDOW_HEIGHT/2)) - 25), WINDOW_HEIGHT, 16 do  
         
         love.graphics.draw(level1.ground.image, x, y)
         
@@ -87,7 +86,7 @@ function loadLevel2()
   level2 = {} -- Table to hold all our intro level objects
 
   level2.ground = {}
-  level2.ground.body = love.physics.newBody(world, WINDOW_WIDTH/2, 3000+WINDOW_HEIGHT/2)
+  level2.ground.body = love.physics.newBody(world, WINDOW_WIDTH/2, 3000 + (WINDOW_HEIGHT)/2)
   level2.ground.shape = love.physics.newRectangleShape(1000, 50)
   level2.ground.fixture = love.physics.newFixture(level2.ground.body, level2.ground.shape, 0)
   level2.ground.image = "hey"
