@@ -23,8 +23,15 @@ function loadIntro()
   intro.wall.shape = love.physics.newRectangleShape(16, 600)
   intro.wall.fixture = love.physics.newFixture(intro.wall.body, intro.wall.shape, 0)
   intro.wall.image = love.graphics.newImage("Images/Art-marte/arbol-alto0000.png")
+  
+  intro.door = {}
+  intro.door.body = love.physics.newBody(world, (WINDOW_WIDTH - 872), (WINDOW_HEIGHT/2 - 153))
+  intro.door.shape = love.physics.newRectangleShape(256, 256)
+  intro.door.fixture = love.physics.newFixture(intro.door.body, intro.door.shape, 0)
+  intro.door.fixture:setSensor(true)
+  intro.door.image = love.graphics.newImage("Images/Art-marte/puerta0000.png")
 end
-
+image = love.graphics.newImage("Images/Art-marte/puerta0000.png")
 function drawIntro()
   -- Draw the wall
   for x = (WINDOW_WIDTH/2) - 500, (WINDOW_WIDTH/2) - 500, 16 do 
@@ -37,6 +44,9 @@ function drawIntro()
         love.graphics.draw(intro.ground.image, x, y)
       end
   end
+  
+  love.graphics.draw(image, 1328, (WINDOW_HEIGHT/2 - 278))
+  love.graphics.draw(intro.door.image, (WINDOW_WIDTH - 744), (WINDOW_HEIGHT - 285))
  --love.graphics.polygon("fill", intro.wall.body:getWorldPoints(intro.wall.shape:getPoints()))
 end
 
