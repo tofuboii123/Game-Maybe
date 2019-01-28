@@ -74,20 +74,18 @@ function Player.controls(self, dt)
     local x,y =  self.body:getLinearVelocity()
     self.body:setLinearVelocity(0, y)
   end
-  
-  -- Exits game from gameplay
-  function love.keypressed(key)
-    if key == "escape" then
+  if love.keyboard.isDown("escape") then
       love.event.quit()
-    elseif key == "x" then
+  end
+  if love.keyboard.isDown("x") then
       state = "jumping"
       local x_Velocity, y_Velocity =  self.body:getLinearVelocity()
       if y_Velocity < 0.01 and y_Velocity > -0.01 then
         self.body:setLinearVelocity(x_Velocity, -550)
       end
-      Player:animation()
-      Player:elapsedTime(dt)
-    end
+      
+    Player:animation()
+    Player:elapsedTime(dt)
   end
   
   timer = timer - 1

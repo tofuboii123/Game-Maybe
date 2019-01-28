@@ -1,7 +1,7 @@
 require "font"
 Object = require "classic"
 Menu = Object:extend()
-menuDisplay = true
+menuDisplay = false
 menuTimer = 5
 volumeState = 0
 moon = love.graphics.newImage("Images/Art-marte/luna0000.png")
@@ -11,7 +11,6 @@ function Menu:new()
   self.menuState = 0
   self.subMenu = 0
   self.music = love.audio.newSource("Music/spooky-ambience.wav","static")
-  self.logo = WOW
 end
 
 function Menu:update(dt)
@@ -28,7 +27,7 @@ function Menu:update(dt)
     if self.subMenu == 0 then
       if key == "z" and self.menuState == 0 then
         love.audio.stop(self.music)
-        menu = false
+        menuDisplay = false
       elseif key == "z" and self.menuState == 1 then
         self.subMenu = 1
       elseif key == "z" and self.menuState == 2 then
